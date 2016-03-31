@@ -11,13 +11,15 @@ app.factory('AjaxServices', function ($http, $q, $rootScope, $cookies) {
 
     return {
         get: function (urlAddress, request, successCallback, errorCallback) {
-
             var config = {
                 headers: {
                     'Token': $cookies.get('token')
                 }
             };
-            $rootScope.$broadcast('loadingShow');
+
+            if (urlAddress != "user/current-user") {
+                $rootScope.$broadcast('loadingShow');
+            }
             var deferred = $q.defer();
             var serviceCall = $http.get(apiUrl + urlAddress, config, request);
 
