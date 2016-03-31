@@ -20,7 +20,7 @@ app.controller('LoginCtrl', function ($scope,$rootScope, $ionicModal, $ionicPopo
                 $cookies.put('token', data.data.Result);
             }
             $scope.article = data.Result;
-             $rootScope.$broadcast('getCurrentUser');
+            $rootScope.$broadcast('getCurrentUser');
         }).catch(function (e) {
             $ionicPopup.alert({
                 title: 'Hata...',
