@@ -1,0 +1,31 @@
+<ion-view view-title="İletişim - Tekatalim">
+    <ion-content>
+        <div class="list">
+            <div class="bar bar-subheader bar-stable static text-center">
+                <strong class="title">İletişim</strong>
+            </div>
+
+            <label class="item item-input border">
+                <span class="input-label">Adınız Soyadınız</span>
+                <input type="text" ng-model="contactForm.FullName" placeholder="Adınız Soyadınız">
+            </label>
+            <label class="item item-input border">
+                <span class="input-label">E-Posta Adresiniz</span>
+                <input type="email" ng-model="contactForm.Email" placeholder="E-Posta Adresiniz">
+            </label>
+            <label class="item item-input border">
+                <span class="input-label">Konu</span>
+                <input type="text" ng-model="contactForm.Subject" placeholder="Konu">
+            </label>
+
+            <label class="item item-input border">
+                <span class="input-label">Mesajınız</span>
+                <textarea ng-model="contactForm.Body" placeholder="Mesajınızı buraya yazınız..."></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <button class="button button-balanced button-raised icon-right ion-ios-color-energized right" ng-click="saveContactForm()"
+                data-ink-color="#FFFFFF" data-ink-opacity=".8">Gönder</button>
+            </label>
+        </div>
+    </ion-content>
+</ion-view>

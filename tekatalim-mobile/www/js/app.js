@@ -6,14 +6,22 @@
 var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies']);
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
-Date.prototype.ddmmyyyy = function () {
+//window.appSettings.apiUrl = "http://localhost:58204/api/";
+Date.prototype.ddmmyyyy = function() {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return dd + "." + mm + "." + yyyy;
 };
 
-Date.prototype.ddmmyyyyhhmm = function () {
+Date.prototype.yyyymmdd = function() {
+    var yyyy = this.getFullYear();
+    var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
+    var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
+    return yyyy + "-" + mm + "-" + dd;
+};
+
+Date.prototype.ddmmyyyyhhmm = function() {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
@@ -22,8 +30,8 @@ Date.prototype.ddmmyyyyhhmm = function () {
     return dd + "." + mm + "." + yyyy + " " + hh + ":" + min;
 };
 
-app.run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
+app.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
 
@@ -36,7 +44,7 @@ app.run(function ($ionicPlatform) {
     });
 })
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
         .state('app', {
@@ -44,56 +52,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             abstract: true,
             templateUrl: 'templates/menu.html',
             controller: 'AppCtrl'
-        })
-
-        .state('app.lists', {
-            url: '/lists',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/lists.html',
-                    controller: 'ListsCtrl'
-                }
-            }
-        })
-
-        .state('app.ink', {
-            url: '/ink',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/ink.html',
-                    controller: 'InkCtrl'
-                }
-            }
-        })
-
-        .state('app.motion', {
-            url: '/motion',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/motion.html',
-                    controller: 'MotionCtrl'
-                }
-            }
-        })
-
-        .state('app.components', {
-            url: '/components',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/components.html',
-                    controller: 'ComponentsCtrl'
-                }
-            }
-        })
-
-        .state('app.extensions', {
-            url: '/extensions',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/extensions.html',
-                    controller: 'ExtensionsCtrl'
-                }
-            }
         })
 
         .state('app.dashboard', {
@@ -105,7 +63,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
+        .state('app.article-list', {
+            url: '/article-list',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/article/article-list.html',
+                    controller: 'ArticleCtrl'
+                }
+            }
+        })
         .state('app.article-detail', {
             url: '/article/detail/:articleId',
             views: {
@@ -125,8 +91,44 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-    ;
+        .state('app.profile', {
+            url: '/profile',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/auth/profile.html',
+                    controller: 'LoginCtrl'
+                }
+            }
+        })
+        .state('app.payment-declaration', {
+            url: '/payment-declaration',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/common/payment-declaration.html',
+                    controller: 'CommonCtrl'
+                }
+            }
+        })
+        .state('app.contact-form', {
+            url: '/contact-form',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/common/contact-form.html',
+                    controller: 'CommonCtrl'
+                }
+            }
+        })
+        .state('app.static-page', {
+            url: '/static-page/:pageId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/common/static-page.html',
+                    controller: 'CommonCtrl'
+                }
+            }
+        })
+        ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/components');
+    $urlRouterProvider.otherwise('/app/dashboard');
 });

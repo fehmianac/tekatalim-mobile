@@ -6,7 +6,7 @@
             </div>
             <div class="im-wrapper">
                 <div>
-                    <span><i class=" ion ion-person"></i> {{article.User.UserName}}</span>
+                    <span><i class="ion ion-person"></i> {{article.User.UserName}}</span>
                     <span><i class="ion ion-eye"></i> {{article.ReadCount}} Okunma</span>
                 </div>
                 <div>
@@ -23,29 +23,31 @@
                     <div ng-repeat="comment in article.Comments">
                         <p>
 
-                        <div><i class=" ion ion-person"></i> <b>Yazan: </b>{{comment.User.UserName}}</div>
-                        <div><i class=" ion ion-clock"></i> <b>Tarih: </b>{{comment.CreateDate | fulldate}}</div>
-                        <div><i class="ion ion-compose"></i> <b>Başlık: </b> {{comment.Title}}</div>
-                        <div><i class="ion ion-chatbubble"></i> <b>Yorum: </b> {{comment.Body}}</div>
+                            <div><i class=" ion ion-person"></i> <b>Yazan: </b>{{comment.User.UserName}}</div>
+                            <div><i class=" ion ion-clock"></i> <b>Tarih: </b>{{comment.CreateDate | fulldate}}</div>
+                            <div><i class="ion ion-compose"></i> <b>Başlık: </b> {{comment.Title}}</div>
+                            <div><i class="ion ion-chatbubble"></i> <b>Yorum: </b> {{comment.Body}}</div>
                         </p>
                     </div>
                 </div>
-                <div class="list">
-                    <h4 class="no-border no-padding-bottom"><i class="ion ion-chatbubbles"></i> Yorum Yapın </h4>
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Konu</span>
-                        <input type="text" ng-model="commentModel.Title" placeholder="Konu">
-                    </label>
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Yorumunuz</span>
-                        <textarea  ng-model="commentModel.Body" placeholder="Yorumunuzu buraya yazınız..."></textarea>
-                    </label>
-                    <label class="item item-input item-stacked-label">
-                        <button class="button button-balanced button-raised icon-right ion-ios-color-energized" ng-click="saveComment()" data-ink-color="#FFFFFF" data-ink-opacity=".8">Yorum Yap</button>
-                    </label>
+            </div>
+            <div class="list">
+                <h4 class="no-border no-padding-bottom"><i class="ion ion-chatbubbles"></i> Yorum Yapın </h4>
+                <label class="item item-input border">
+                    <span class="input-label">Konu</span>
+                    <input type="text" ng-model="commentModel.Title" placeholder="Konu">
+                </label>
+                <label class="item item-input border">
+                    <span class="input-label">Yorumunuz</span>
+                    <textarea ng-model="commentModel.Body" placeholder="Yorumunuzu buraya yazınız..."></textarea>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <button class="button button-balanced button-raised icon-right ion-ios-color-energized right" ng-click="saveComment()" data-ink-color="#FFFFFF"
+                    data-ink-opacity=".8">Yorum Yap</button>
+                </label>
 
-                </div>
             </div>
         </div>
+
     </ion-content>
 </ion-view>

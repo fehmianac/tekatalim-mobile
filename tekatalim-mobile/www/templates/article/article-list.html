@@ -1,26 +1,13 @@
-<ion-view view-title="Anasayfa">
+<ion-view view-title="Tüm Tahminler">
     <ion-content>
         <ion-refresher pulling-text="Yükleniyor..." on-refresh="doRefresh()">
         </ion-refresher>
-        <div class="bar bar-subheader bar-stable static text-center">
-            <strong class="title">Ümit Gürgan'ın Son Başarılı Tahminleri</strong>
-        </div>
-        
         <div class="row">
             <div class="col col-100">
-                <ion-slide-box>
-                    <ion-slide ng-repeat="image in slides">
-                        <a href="#/app/article/detail/{{image.ArticleId}}"><img ng-src="{{image.ImageUrl}}" style="width:400px;height:200px;margin:auto;display:block"></a>
-                    </ion-slide>
-                </ion-slide-box>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-100">
-                <div ng-repeat="article in todayArticleList">
-                    <div class="bar bar-subheader bar-stable static text-center">
-                        <strong class="title">Ümit Gürgan'ın {{article.AddedDate | showdate}} Yorumu</strong>
-                    </div>
+                <div class="bar bar-subheader bar-stable static text-center">
+                    <strong class="title">Ümit Gürgan'ın Tüm Tahminleeri</strong>
+                </div>
+                <div ng-repeat="article in articleList">
                     <div class="list card stable-bg im-wrapper">
                         <div class="item">
                             <div class="bar bar-subheader bar-stable static text-center">
@@ -44,5 +31,7 @@
                 </div>
             </div>
         </div>
+        <ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+        </ion-infinite-scroll>
     </ion-content>
 </ion-view>

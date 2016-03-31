@@ -1,5 +1,4 @@
-﻿
-<ion-side-menus enable-menu-with-back-views="false">
+﻿<ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
         <ion-nav-bar class="bar-assertive">
             <ion-nav-back-button class="no-text">
@@ -23,20 +22,37 @@
         <ion-content class="stable-bg has-expanded-header">
             <ion-list>
                 <ion-item nav-clear menu-close href="#/app/dashboard">
-                    Tahminler
+                    Günün Tahminleri
                 </ion-item>
-
-                <ion-item nav-clear menu-close href="#/app/components">
+                <ion-item nav-clear menu-close href="#/app/article-list">
+                    Tüm Tahminler
+                </ion-item>
+                <ion-item nav-clear menu-close href="#/app/payment-declaration">
                     Ödeme Bildirimi
                 </ion-item>
-                <ion-item nav-clear menu-close href="#/app/components">
-                    İletişim
+                <ion-item nav-clear menu-close href="#/app/static-page/1">
+                    Vip Üyelik Bilgileri
                 </ion-item>
-
-                <ion-item nav-clear menu-close href="#/app/login">
+                <ion-item nav-clear menu-close href="#/app/static-page/2">
+                    Kredili Sistem Hakkında
+                </ion-item>
+                <ion-item nav-clear menu-close href="#/app/static-page/3">
+                    Ümit Gürgan Kimdir
+                </ion-item>
+                <ion-item nav-clear menu-close href="#/app/contact-form">
+                    İletişim
+                </ion-item>                
+                <ion-item nav-clear menu-close href="#/app/login" ng-hide="hideLogin">
                     Giriş Yap
                 </ion-item>
 
+                <ion-item nav-clear menu-close href="#/app/profile" ng-hide="hideProfile">
+                    Profil
+                </ion-item>
+
+                <ion-item nav-clear menu-close ng-click="logout();" ng-hide="hideProfile">
+                    Çıkış
+                </ion-item>
                 <!--<ion-item nav-clear menu-close href="#/app/components">
                     Components+
                 </ion-item>

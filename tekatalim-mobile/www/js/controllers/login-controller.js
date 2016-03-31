@@ -2,7 +2,7 @@
  * Created by fehmi on 30.03.2016.
  */
 
-app.controller('LoginCtrl', function ($scope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $stateParams, $cookies, AjaxServices) {
+app.controller('LoginCtrl', function ($scope,$rootScope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $stateParams, $cookies, AjaxServices) {
 
     $scope.loginModel = {
         UserName: "",
@@ -15,9 +15,12 @@ app.controller('LoginCtrl', function ($scope, $ionicModal, $ionicPopover, $ionic
         };
         AjaxServices.post("auth/login", request).then(function (data) {
             if (data.data.Result != null) {
+                $rootScope.hideLogin = true;
+                $rootScope.hideProfile = false;
                 $cookies.put('token', data.data.Result);
             }
             $scope.article = data.Result;
+             $rootScope.$broadcast('getCurrentUser');
         }).catch(function (e) {
             $ionicPopup.alert({
                 title: 'Hata...',
