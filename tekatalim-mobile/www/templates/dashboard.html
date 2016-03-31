@@ -1,0 +1,63 @@
+<ion-view view-title="Anasayfa">
+    <ion-content>
+        <ion-refresher
+        pulling-text="Yükleniyor..."
+        on-refresh="doRefresh()">
+        </ion-refresher>
+        <div ng-repeat="article in todayArticleList">
+            <div class="list card">
+                <div class="bar bar-subheader bar-stable static text-center">
+                    <strong class="title">Ümit Gürgan'ın {{article.AddedDate | showdate}} Yorumu</strong>
+                </div>
+                <div class="item item-body im-wrapper">
+                    <div>
+                        <a href="#/app/article/detail/{{article.Id}}"><h2 class="no-border no-padding-bottom">
+                            {{article.Title}}</h2></a>
+                    </div>
+                    <div>
+                        <span><i class=" ion ion-person"></i> {{article.User.UserName}}</span>
+                        <span><i class="ion ion-eye"></i> {{article.ReadCount}} Okunma</span>
+                    </div>
+                    <div>
+                        <span><i class="ion ion-clock"></i> {{article.AddedDate | showdate}}</span>
+                        <span><i class="ion ion-chatbubbles"></i> {{article.CommentCount}} Yorum</span>
+                    </div>
+                    <span ng-bind-html="article.Body"></span>
+
+                    <p>
+                        <a class="button button-raised button-assertive icon ion-clipboard ink-dark"
+                           href="#/app/article/detail/{{article.Id}}"> Devamını Oku</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Son Tahminlerim</strong>
+        </div>
+        <div ng-repeat="article in articleList">
+            <div class="list card im-wrapper">
+                <div class="bar bar-subheader bar-stable static text-center">
+                    <strong class="title">{{article.Title}}</strong>
+                </div>
+                <div class="item item-body">
+                    <div>
+                        <span><i class=" ion ion-person"></i> {{article.User.UserName}}</span>
+                        <span><i class="ion ion-eye"></i> {{article.ReadCount}} Okunma</span>
+                    </div>
+                    <div>
+                        <span><i class="ion ion-clock"></i> {{article.AddedDate | showdate}}</span>
+                        <span><i class="ion ion-chatbubbles"></i> {{article.CommentCount}} Yorum</span>
+                    </div>
+                    <span ng-bind-html="article.Body"></span>
+
+                    <p>
+                        <a class="button button-raised button-assertive icon ion-clipboard ink-dark"
+                           href="#/app/article/detail/{{article.Id}}"> Devamını Oku</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

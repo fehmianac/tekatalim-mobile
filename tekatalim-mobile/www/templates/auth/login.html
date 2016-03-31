@@ -1,0 +1,25 @@
+<ion-view view-title="Giriş">
+    <ion-content>
+        <div>
+            <div class="bar bar-subheader bar-stable static text-center">
+                <strong class="title">Giriş</strong>
+            </div>
+            <div class="im-wrapper">
+                <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Kullanıcı Adınız: </span>
+                    <input type="text" ng-model="loginModel.UserName" placeholder="Kullanıcı Adınız.">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Şifreniz</span>
+                    <input type="password" ng-model="loginModel.Password" placeholder="Şifreniz">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <button class="button button-balanced button-raised icon-right ion-ios-color-energized" ng-click="login()" data-ink-color="#FFFFFF" data-ink-opacity=".8">Giriş</button>
+                </label>
+
+            </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
