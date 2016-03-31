@@ -127,6 +127,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('app.register', {
+            url: '/register',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/auth/register.html',
+                    controller: 'LoginCtrl'
+                }
+            }
+        })
+        .state('app.forget-password', {
+            url: '/forget-password',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/auth/forget-password.html',
+                    controller: 'LoginCtrl'
+                }
+            }
+        })
         ;
 
     // if none of the above states are matched, use this as the fallback
