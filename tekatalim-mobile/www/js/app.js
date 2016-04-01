@@ -3,25 +3,25 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies']);
+var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages']);
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://localhost:58204/api/";
-Date.prototype.ddmmyyyy = function() {
+Date.prototype.ddmmyyyy = function () {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return dd + "." + mm + "." + yyyy;
 };
 
-Date.prototype.yyyymmdd = function() {
+Date.prototype.yyyymmdd = function () {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return yyyy + "-" + mm + "-" + dd;
 };
 
-Date.prototype.ddmmyyyyhhmm = function() {
+Date.prototype.ddmmyyyyhhmm = function () {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
@@ -30,8 +30,11 @@ Date.prototype.ddmmyyyyhhmm = function() {
     return dd + "." + mm + "." + yyyy + " " + hh + ":" + min;
 };
 
-app.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
+window.onerror = function (e) {
+    alert(JSON.stringify(e));
+}
+app.run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
 
@@ -44,10 +47,10 @@ app.run(function($ionicPlatform) {
     });
 })
 
-app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
-    
-    $ionicConfigProvider.platform.android.views.transition('none'); 
+
+    $ionicConfigProvider.platform.android.views.transition('none');
     $stateProvider
 
         .state('app', {
@@ -148,7 +151,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 }
             }
         })
-        ;
+    ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');

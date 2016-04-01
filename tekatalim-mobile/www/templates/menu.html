@@ -7,7 +7,8 @@
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
-                <button class="button button-icon button-clear ion-android-more-vertical" id="menu-popover" ng-click="popover.show($event)"></button>
+                <button class="button button-icon button-clear ion-android-more-vertical" id="menu-popover"
+                        ng-click="popover.show($event)"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>
@@ -15,6 +16,7 @@
     <ion-side-menu side="left">
         <ion-header-bar class="expanded">
             <img src="img/logo.png" class="avatar motion spin fade">
+
             <div class="menu-bottom">
                 Tekatalim.com
             </div>
@@ -27,9 +29,6 @@
                 <ion-item nav-clear menu-close href="#/app/article-list">
                     Tüm Tahminler
                 </ion-item>
-                <ion-item nav-clear menu-close href="#/app/payment-declaration">
-                    Ödeme Bildirimi
-                </ion-item>
                 <ion-item nav-clear menu-close href="#/app/static-page/1">
                     Vip Üyelik Bilgileri
                 </ion-item>
@@ -39,9 +38,12 @@
                 <ion-item nav-clear menu-close href="#/app/static-page/3">
                     Ümit Gürgan Kimdir
                 </ion-item>
+                <ion-item nav-clear menu-close href="#/app/payment-declaration">
+                    Ödeme Bildirimi
+                </ion-item>
                 <ion-item nav-clear menu-close href="#/app/contact-form">
                     İletişim
-                </ion-item>                
+                </ion-item>
                 <ion-item nav-clear menu-close href="#/app/login" ng-hide="hideLogin">
                     Giriş Yap
                 </ion-item>

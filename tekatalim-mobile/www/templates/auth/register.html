@@ -4,44 +4,53 @@
             <div class="bar bar-subheader bar-stable static text-center">
                 <strong class="title">Kaydol</strong>
             </div>
-            <label class="item item-input border">
-                <span class="input-label">Kullanıcı Adınız</span>
-                <input type="text" ng-model="registerModel.UserName" placeholder="Kullanıcı Adınız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Şifreniz</span>
-                <input type="password" ng-model="registerModel.Password" placeholder="Şifreniz">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">E-Posta Adresiniz</span>
-                <input type="email" ng-model="registerModel.Email" placeholder="E-Posta Adresiniz">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Adınız</span>
-                <input type="text" ng-model="registerModel.Name" placeholder="Adınız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Soyadınız</span>
-                <input type="text" ng-model="registerModel.LastName" placeholder="Soyadınız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Telefon Numaranız</span>
-                <input type="tel" ng-model="registerModel.PhoneNumber" placeholder="Telefon Numaranız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">TC Kimlik Numaranız</span>
-                <input type="number" ng-model="registerModel.TcNo" placeholder="TC Kimlik Numaranız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Doğum Tarihiniz</span>
-                <input type="date" ng-model="registerModel.BirthDate" placeholder="Doğum Tarihiniz">
-            </label>
-            <label class="item item-input item-stacked-label im-wrapper">
-                <button class="button button-balanced button-raised icon-right ion-ios-color-energized right"
-                        ng-click="register()" data-ink-color="#FFFFFF"
-                        data-ink-opacity=".8">Kaydol
-                </button>
-            </label>
+            <form novalidate="" name="registerForm" ng-submit="registerForm.$valid && register(registerForm)">
+                <label class="item item-input border" ng-class="{ 'has-errors' : registerForm.username.$invalid, 'no-errors' : registerForm.username.$valid}">
+                    <span class="input-label">Kullanıcı Adınız<span class="assertive">*</span> </span>
+                    <input type="text" ng-model="registerModel.UserName" name="username" placeholder="Kullanıcı Adınız"
+                           required="required">
+                </label>
+                <label class="item item-input border" ng-class="{ 'has-errors' : registerForm.password.$invalid, 'no-errors' : registerForm.password.$valid}">
+                    <span class="input-label">Şifreniz<span class="assertive">*</span> </span>
+                    <input type="password" ng-model="registerModel.Password" name="password" ng-minlength="6" placeholder="Şifreniz"
+                           required="required">
+                </label>
+                <div class="error" ngmessage="minlength" ng-show="registerForm.$submitted && registerForm.password.$error.minlength">
+                    <i class="ion-information-circled"></i>
+                    Şifreniz en az 6 karakter olmalıdır.
+                </div>
+                <label class="item item-input border" ng-class="{ 'has-errors' : registerForm.email.$invalid, 'no-errors' : registerForm.email.$valid}">
+                    <span class="input-label">E-Posta Adresiniz<span class="assertive">*</span> </span>
+                    <input type="email" ng-model="registerModel.Email" name="email" placeholder="E-Posta Adresiniz"
+                           required="required">
+                </label>
+                <label class="item item-input border">
+                    <span class="input-label">Adınız</span>
+                    <input type="text" ng-model="registerModel.Name" placeholder="Adınız">
+                </label>
+                <label class="item item-input border">
+                    <span class="input-label">Soyadınız</span>
+                    <input type="text" ng-model="registerModel.LastName" placeholder="Soyadınız">
+                </label>
+                <label class="item item-input border">
+                    <span class="input-label">Telefon Numaranız</span>
+                    <input type="tel" ng-model="registerModel.PhoneNumber" placeholder="Telefon Numaranız">
+                </label>
+                <label class="item item-input border">
+                    <span class="input-label">Doğum Tarihiniz</span>
+                    <input type="date" ng-model="registerModel.BirthDate" placeholder="Doğum Tarihiniz">
+                </label>
+                <label class="item item-input item-stacked-label im-wrapper">
+                    <button type="submit"
+                            class="button button-balanced button-raised icon-right ion-ios-color-energized right"
+                            data-ink-color="#FFFFFF"
+                            data-ink-opacity=".8">Kaydol
+                    </button>
+                </label>
+                <div class="im-wrapper" ngMessages="minlength">
+                    <span><span class="assertive">*</span> olan alanlar zorunludur.</span>
+                </div>
+            </form>
         </div>
     </ion-content>
 </ion-view>

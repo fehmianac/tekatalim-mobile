@@ -2,30 +2,38 @@
     <ion-content>
         <div class="list">
             <div class="bar bar-subheader bar-stable static text-center">
-                <strong class="title">İletişim</strong>
+                <strong class="title">İletişim </strong>
             </div>
+            <form novalidate="" name="contactForm" ng-submit="contactForm.$valid && saveContactForm(contactForm)">
+                <label class="item item-input border" ng-class="{ 'has-errors' : contactForm.fullname.$invalid, 'no-errors' : contactForm.fullname.$valid}">
+                    <span class="input-label">Adınız Soyadınız <span class="assertive">*</span></span>
+                    <input type="text" ng-model="contactFormModel.FullName" name="fullname" placeholder="Adınız Soyadınız" required="required">
+                </label>
+                <label class="item item-input border" ng-class="{ 'has-errors' : contactForm.email.$invalid, 'no-errors' : contactForm.email.$valid}">
+                    <span class="input-label">E-Posta Adresiniz <span class="assertive">*</span></span>
+                    <input type="email" ng-model="contactFormModel.Email" name="email" placeholder="E-Posta Adresiniz" required="required">
+                </label>
+                <label class="item item-input border">
+                    <span class="input-label">Konu</span>
+                    <input type="text" ng-model="contactFormModel.Subject" placeholder="Konu">
+                </label>
 
-            <label class="item item-input border">
-                <span class="input-label">Adınız Soyadınız</span>
-                <input type="text" ng-model="contactForm.FullName" placeholder="Adınız Soyadınız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">E-Posta Adresiniz</span>
-                <input type="email" ng-model="contactForm.Email" placeholder="E-Posta Adresiniz">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Konu</span>
-                <input type="text" ng-model="contactForm.Subject" placeholder="Konu">
-            </label>
+                <label class="item item-input border" ng-class="{ 'has-errors' : contactForm.body.$invalid, 'no-errors' : contactForm.body.$valid}">
+                    <span class="input-label">Mesajınız <span class="assertive">*</span></span>
+                    <textarea ng-model="contactFormModel.Body" name="body" required="required"
+                              placeholder="Mesajınızı buraya yazınız..."></textarea>
+                </label>
+                <label class="item item-input item-stacked-label im-wrapper">
+                    <button type="submit"
+                            class="button button-balanced button-raised icon-right ion-ios-color-energized right"
+                            data-ink-color="#FFFFFF" data-ink-opacity=".8">Gönder
+                    </button>
+                </label>
 
-            <label class="item item-input border">
-                <span class="input-label">Mesajınız</span>
-                <textarea ng-model="contactForm.Body" placeholder="Mesajınızı buraya yazınız..."></textarea>
-            </label>
-            <label class="item item-input item-stacked-label im-wrapper">
-                <button class="button button-balanced button-raised icon-right ion-ios-color-energized right" ng-click="saveContactForm()"
-                data-ink-color="#FFFFFF" data-ink-opacity=".8">Gönder</button>
-            </label>
+                <div class="im-wrapper">
+                    <span><span class="assertive">*</span> olan alanlar zorunludur.</span>
+                </div>
+            </form>
         </div>
     </ion-content>
 </ion-view>

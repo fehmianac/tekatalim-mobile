@@ -2,48 +2,58 @@
     <ion-content>
         <div class="list">
             <div class="bar bar-subheader bar-stable static text-center">
-                <strong class="title">Giriş</strong>
+                <strong class="title">Ödeme Bildirimi</strong>
             </div>
-            <label class="item item-input border">
-                <span class="input-label">Kullanıcı Adınız</span>
-                <input type="text" ng-model="paymentDeclaration.UserName" placeholder="Kullanıcı Adınız">
-            </label>
+            <form name="paymentDeclarationForm" novalidate=""
+                  ng-submit="paymentDeclarationForm.$valid && savePaymentDeclaration()">
+                <label class="item item-input border"  ng-class="{ 'has-errors' : paymentDeclarationForm.username.$invalid, 'no-errors' : paymentDeclarationForm.username.$valid}">
+                    <span class="input-label">Kullanıcı Adınız <span class="assertive">*</span></span>
+                    <input type="text" ng-model="paymentDeclarationModel.UserName" name="username"
+                           placeholder="Kullanıcı Adınız" required="required">
+                </label>
 
-            <label class="item item-input border">
-                <span class="input-label">Adınız Soyadınız</span>
-                <input type="text" ng-model="paymentDeclaration.FullName" placeholder="Adınız Soyadınız">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Tc Kimlik No</span>
-                <input type="text" ng-model="paymentDeclaration.TcNo" placeholder="Tc Kimlik No">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Para Yatırdığınız Banka</span>
-                <input type="text" ng-model="paymentDeclaration.SenderBankName" placeholder="Para Yatırdığınız Banka">
-            </label>
-            <label class="item item-select border">
-                <span class="input-label">Ödeme Yaptığınız Kanal</span>
-                <select name="Chanel" ng-model="paymentDeclaration.Chanel">
-                    <option value="Paypal">Paypal</option>
-                    <option value="Garanti Bankası">Garanti Bankası</option>
-                    <option value="İş Bankası">İş Bankası</option>
-                    <option value="Oley">Oley</option>
-                    <option value="TJK">TJK</option>
-                    <option value="PTT">PTT</option>
-                </select>
-            </label>
-             <label class="item item-input border">
-                <span class="input-label">Tutar</span>
-                <input type="text" ng-model="paymentDeclaration.Amount" placeholder="Tutar">
-            </label>
-             <label class="item item-input border">
-                <span class="input-label">Tarih</span>
-                <input type="date" ng-model="paymentDeclaration.PaymentDate" placeholder="Tarih">
-            </label>
-            <label class="item item-input item-stacked-label im-wrapper">
-                <button class="button button-balanced button-raised icon-right ion-ios-color-energized right" ng-click="savePaymentDeclaration()" data-ink-color="#FFFFFF"
-                data-ink-opacity=".8">Ödeme Bildir</button>
-            </label>
+                <label class="item item-input border"  ng-class="{ 'has-errors' : paymentDeclarationForm.fullname.$invalid, 'no-errors' : paymentDeclarationForm.fullname.$valid}">
+                    <span class="input-label">Adınız Soyadınız <span class="assertive">*</span></span>
+                    <input type="text" ng-model="paymentDeclarationModel.FullName" name="fullname"
+                           placeholder="Adınız Soyadınız" required="required">
+                </label>
+                <label class="item item-input border"  ng-class="{ 'has-errors' : paymentDeclarationForm.tc.$invalid, 'no-errors' : paymentDeclarationForm.tc.$valid}">
+                    <span class="input-label">Tc Kimlik No <span class="assertive">*</span></span>
+                    <input type="text" ng-model="paymentDeclarationModel.TcNo" name="tc" placeholder="Tc Kimlik No" required="required">
+                </label>
+                <label class="item item-input border"  ng-class="{ 'has-errors' : paymentDeclarationForm.senderbankname.$invalid, 'no-errors' : paymentDeclarationForm.senderbankname.$valid}">
+                    <span class="input-label">Para Yatırdığınız Banka <span class="assertive">*</span></span>
+                    <input type="text" ng-model="paymentDeclarationModel.SenderBankName" name="senderbankname"
+                           placeholder="Para Yatırdığınız Banka" required="required">
+                </label>
+                <label class="item item-select border"  ng-class="{ 'has-errors' : paymentDeclarationForm.chanel.$invalid, 'no-errors' : paymentDeclarationForm.chanel.$valid}">
+                    <span class="input-label">Ödeme Yaptığınız Kanal <span class="assertive">*</span></span>
+                    <select name="Chanel" ng-model="paymentDeclarationModel.Chanel" name="chanel" required="required">
+                        <option selected="selected">Şeçiniz</option>
+                        <option value="Paypal">Paypal</option>
+                        <option value="Garanti Bankası">Garanti Bankası</option>
+                        <option value="İş Bankası">İş Bankası</option>
+                        <option value="Oley">Oley</option>
+                        <option value="TJK">TJK</option>
+                        <option value="PTT">PTT</option>
+                    </select>
+                </label>
+                <label class="item item-input border"  ng-class="{ 'has-errors' : paymentDeclarationForm.amount.$invalid, 'no-errors' : paymentDeclarationForm.amount.$valid}">
+                    <span class="input-label">Tutar <span class="assertive">*</span></span>
+                    <input type="text" ng-model="paymentDeclarationModel.Amount" placeholder="Tutar" name="amount" required="required">
+                </label>
+                <label class="item item-input border"  ng-class="{ 'has-errors' : paymentDeclarationForm.date.$invalid, 'no-errors' : paymentDeclarationForm.date.$valid}">
+                    <span class="input-label">Tarih <span class="assertive">*</span></span>
+                    <input type="date" ng-model="paymentDeclarationModel.PaymentDate" placeholder="Tarih" name="date" required="required">
+                </label>
+                <label class="item item-input item-stacked-label im-wrapper">
+                    <button type="submit"
+                            class="button button-balanced button-raised icon-right ion-ios-color-energized right"
+                            data-ink-color="#FFFFFF"
+                            data-ink-opacity=".8">Ödeme Bildir
+                    </button>
+                </label>
+            </form>
         </div>
     </ion-content>
 </ion-view>

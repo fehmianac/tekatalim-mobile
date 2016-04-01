@@ -92,12 +92,11 @@ app.factory('AjaxServices', function ($http, $q, $rootScope, $cookies) {
                 deferred.resolve(data);
             });
             serviceCall.catch(function (data, status) {
-
                 if (typeof errorCallback == 'function') {
                     errorCallback(status);
                 }
                 $rootScope.$broadcast('loadingHide');
-                deferred.reject(status);
+                deferred.reject(data);
             });
             return deferred.promise;
         },

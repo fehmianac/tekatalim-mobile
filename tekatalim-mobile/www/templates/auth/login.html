@@ -4,24 +4,58 @@
             <div class="bar bar-subheader bar-stable static text-center">
                 <strong class="title">Giriş</strong>
             </div>
-            <label class="item item-input border">
-                <span class="input-label">Kullanıcı Adınız</span>
-                <input type="text" ng-model="loginModel.UserName" placeholder="Kullanıcı Adınız.">
-            </label>
-            <label class="item item-input border">
-                <span class="input-label">Şifreniz</span>
-                <input type="password" ng-model="loginModel.Password" placeholder="Şifreniz">
-            </label>
-            <p class="text-center">
-                <a href="#/app/forget-password">Şifremi Unuttum</a> | <a href="#/app/register">Kaydol</a>
-            </p>
-            <label class="item item-input item-stacked-label im-wrapper">
-                <button class="button button-balanced button-raised icon-right ion-ios-color-energized right"
-                        ng-click="login()" data-ink-color="#FFFFFF"
-                        data-ink-opacity=".8">Giriş
-                </button>
-            </label>
+            <form name="loginForm" novalidate="" ng-submit="loginForm.$valid && login(loginForm)">
+                <label class="item item-input border"
+                       ng-class="{ 'has-errors' : loginForm.username.$invalid, 'no-errors' : loginForm.username.$valid}">
+                    <span class="input-label">Kullanıcı Adınız <span class="assertive">*</span></span>
+                    <input type="text" name="username" ng-model="loginModel.UserName" placeholder="Kullanıcı Adınız."
+                           required="required" ng-maxlength="50">
+                </label>
 
+                <div class="error" ngmessage="minlength"
+                     ng-show="loginForm.$submitted && loginForm.username.$error.maxlength">
+                    <i class="ion-information-circled"></i>
+                    Kullanıcı adı en fazla 50 karakter olabilir.
+                </div>
+                <label class="item item-input border"
+                       ng-class="{ 'has-errors' : loginForm.password.$invalid, 'no-errors' : loginForm.password.$valid}">
+                    <span class="input-label">Şifreniz <span class="assertive">*</span></span>
+                    <input type="password" ng-model="loginModel.Password" name="password" placeholder="Şifreniz"
+                           required="required" ng-maxlength="50">
+                </label>
+
+                <div class="error" ngmessage="minlength"
+                     ng-show="loginForm.$submitted && loginForm.password.$error.maxlength">
+                    <i class="ion-information-circled"></i>
+                    Şifreniz en fazla 50 karakter olabilir.
+                </div>
+                <label class="item item-input item-stacked-label im-wrapper">
+                    <button type="submit"
+                            class="button button-balanced button-raised icon-right ion-ios-color-energized right"
+                            data-ink-color="#FFFFFF"
+                            data-ink-opacity=".8">Giriş
+                    </button>
+                </label>
+
+                <div class="im-wrapper" ngMessages="minlength">
+                    <span><span class="assertive">*</span> olan alanlar zorunludur.</span>
+                </div>
+            </form>
+
+            <div class="item item-input item-stacked-label im-wrapper">
+                <span class="col-50">
+                    <button ng-click="goToForgetPassword()" class="button button-energized button-raised">Şifremi
+                        Unuttum
+                    </button>
+                </span>
+                <span class="col-50">
+                    <button type="submit" ng-click="goToRegister()"
+                            class="button button-calm button-raised icon-right ion-ios-color-energized"
+                            data-ink-color="#FFFFFF"
+                            data-ink-opacity=".8">Kaydol
+                    </button>
+                </span>
+            </div>
         </div>
     </ion-content>
 </ion-view>

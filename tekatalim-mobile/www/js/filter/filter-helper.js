@@ -14,7 +14,6 @@ app.filter('fulldate', function () {
     return function (input) {
         var date = new Date(input);
         if (days[date.getDay()] == undefined)
-            debugger;
         return date.ddmmyyyyhhmm() + " " + days[date.getDay()];
     };
 });

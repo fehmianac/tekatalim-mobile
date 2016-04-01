@@ -10,14 +10,15 @@ app.controller('CommonCtrl', function($scope, $rootScope, $ionicModal, $ionicPop
         return this;
     }
 
-    $scope.contactForm = {
+    $scope.contactFormModel = {
         FullName: "",
         Email: "",
         Subject: "",
         Body: ""
     };
-    $scope.saveContactForm = function() {
-        AjaxServices.post("common/contact-form", $scope.contactForm).then(function(data) {
+    $scope.saveContactForm = function(form) {
+        debugger;
+        AjaxServices.post("common/contact-form", $scope.contactFormModel).then(function(data) {
             $ionicPopup.alert({
                 title: 'Başarılı...',
                 template: 'Mesajınız yöneticimize ulaştı. En kısa zamanda E-Mail ile tarafınızıa dönüş yapılacaktır.'
@@ -30,7 +31,7 @@ app.controller('CommonCtrl', function($scope, $rootScope, $ionicModal, $ionicPop
         });
     };
 
-    $scope.paymentDeclaration = {
+    $scope.paymentDeclarationModel = {
         UserName: "",
         FullName: "",
         TcNo: "",
@@ -42,13 +43,13 @@ app.controller('CommonCtrl', function($scope, $rootScope, $ionicModal, $ionicPop
 
     $scope.savePaymentDeclaration = function() {
         var request = {
-            UserName: $scope.paymentDeclaration.UserName,
-            FullName: $scope.paymentDeclaration.FullName,
-            TcNo: $scope.paymentDeclaration.TcNo,
-            SenderBankName: $scope.paymentDeclaration.SenderBankName,
-            Chanel: $scope.paymentDeclaration.Chanel,
-            Amount: $scope.paymentDeclaration.Amount,
-            PaymentDate: $scope.paymentDeclaration.PaymentDate
+            UserName: $scope.paymentDeclarationModel.UserName,
+            FullName: $scope.paymentDeclarationModel.FullName,
+            TcNo: $scope.paymentDeclarationModel.TcNo,
+            SenderBankName: $scope.paymentDeclarationModel.SenderBankName,
+            Chanel: $scope.paymentDeclarationModel.Chanel,
+            Amount: $scope.paymentDeclarationModel.Amount,
+            PaymentDate: $scope.paymentDeclarationModel.PaymentDate
         };
         AjaxServices.post("common/payment-declaration", request).then(function(data) {
             $ionicPopup.alert({
