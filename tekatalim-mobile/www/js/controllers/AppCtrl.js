@@ -7,6 +7,7 @@
     $scope.getCurrentUser = function() {
         AjaxServices.get("user/current-user").then(function(data) {
             $rootScope.user = data.Result;
+            
             $rootScope.hideProfile = false;
         }).catch(function(e) {
             $rootScope.hideLogin = false;
