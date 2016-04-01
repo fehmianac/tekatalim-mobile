@@ -17,6 +17,7 @@
     $rootScope.$on('getCurrentUser', function() {
         $scope.getCurrentUser();
     });
+    
     setInterval(function() {
         $scope.getCurrentUser();
     }, 60000);

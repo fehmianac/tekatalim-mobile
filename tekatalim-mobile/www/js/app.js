@@ -44,7 +44,10 @@ app.run(function($ionicPlatform) {
     });
 })
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+    
+    $ionicConfigProvider.platform.android.views.transition('none'); 
     $stateProvider
 
         .state('app', {

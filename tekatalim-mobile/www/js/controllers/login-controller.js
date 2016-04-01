@@ -2,18 +2,18 @@
  * Created by fehmi on 30.03.2016.
  */
 
-app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $stateParams, $cookies, AjaxServices) {
+app.controller('LoginCtrl', function($scope, $rootScope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $stateParams, $cookies, AjaxServices) {
 
     $scope.loginModel = {
         UserName: "",
         Password: ""
     };
-    $scope.login = function () {
+    $scope.login = function() {
         var request = {
             UserName: $scope.loginModel.UserName,
             Password: $scope.loginModel.Password
         };
-        AjaxServices.post("auth/login", request).then(function (data) {
+        AjaxServices.post("auth/login", request).then(function(data) {
             if (data.data.Result != null) {
                 $rootScope.hideLogin = true;
                 $rootScope.hideProfile = false;
@@ -21,7 +21,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
             }
             $scope.article = data.Result;
             $rootScope.$broadcast('getCurrentUser');
-        }).catch(function (e) {
+        }).catch(function(e) {
             /*$ionicPopup.alert({
              title: 'Hata...',
              template: 'Yorumunuz kayıt edilemedi. Lütfen daha sonra tekrar deneyiniz.'
@@ -40,7 +40,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
         BirthDate: ""
     };
 
-    $scope.register = function () {
+    $scope.register = function() {
         var request = {
             UserName: $scope.registerModel.UserName,
             Password: $scope.registerModel.Password,
@@ -51,7 +51,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
             TcNo: $scope.registerModel.TcNo,
             BirthDate: $scope.registerModel.BirthDate
         };
-        AjaxServices.post("user/register", request).then(function (data) {
+        AjaxServices.post("user/register", request).then(function(data) {
             $scope.loginModel = {
                 UserName: $scope.registerModel.UserName,
                 Password: $scope.registerModel.Password
@@ -61,7 +61,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
                 title: 'Başarılı...',
                 template: 'Merhaba ' + $scope.registerModel.UserName + ' Tekatalim.com"a hoşgeldin. Üyeliğiniz başarı ike kayıt ettik'
             });
-        }).catch(function () {
+        }).catch(function() {
             $ionicPopup.alert({
                 title: 'Hata...',
                 template: 'Üzgünüz üyeliğinizi oluşturamadık. Lütfen tekrar deneyiniz.'
@@ -73,16 +73,49 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
         Email: ""
     };
 
-    $scope.forgetPassword = function () {
-        AjaxServices.post("auth/forget-password", {Email: $scope.forgetPasswordModel.Email}).then(function (data) {
+    $scope.forgetPassword = function() {
+        AjaxServices.post("auth/forget-password", { Email: $scope.forgetPasswordModel.Email }).then(function(data) {
             $ionicPopup.alert({
                 title: 'Başarılı...',
                 template: 'Şifreniz başarı ile e-posta adresinize gönderilmiştir.'
             });
-        }).catch(function () {
+        }).catch(function() {
             $ionicPopup.alert({
                 title: 'Hata...',
                 template: 'Üzgünüz e-postanızı gönderemedik. Lütfen tekrar deneyiniz.'
+            });
+        });
+    };
+
+    $scope.getCurrentUser = function() {
+        AjaxServices.get("user/current-user").then(function(data) {
+            $scope.profileModel = data.Result;
+            $scope.profileModel.BirthDate = new Date($scope.profileModel.BirthDate);
+        }).catch(function(e) {
+        });
+    };
+    $scope.getCurrentUser();
+
+    $scope.updateProfile = function() {
+        var request = {
+            UserName: $scope.profileModel.UserName,
+            Email: $scope.profileModel.Email,
+            Name: $scope.profileModel.Name,
+            LastName: $scope.profileModel.LastName,
+            PhoneNumber: $scope.profileModel.PhoneNumber,
+            TcNo: $scope.profileModel.TC,
+            BirthDate: $scope.profileModel.BirthDate
+        };
+
+        AjaxServices.post("user/profile/" + $scope.profileModel.Id, request).then(function(data) {
+            $ionicPopup.alert({
+                title: 'Başarılı...',
+                template: 'Merhaba ' + $scope.profileModel.UserName + ' Profilin başarı ile güncellendi.'
+            });
+        }).catch(function() {
+            $ionicPopup.alert({
+                title: 'Hata...',
+                template: 'Üzgünüz progilini güncelleyemedik. Lütfen tekrar deneyiniz.'
             });
         });
     };
