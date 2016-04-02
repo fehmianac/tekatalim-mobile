@@ -31,28 +31,39 @@
                     </div>
                 </div>
             </div>
-            <div class="list">
+            <div class="list" ng-show="{{isLoggedUser}}">
                 <div class="im-wrapper"><h4 class="no-border no-padding-bottom"><i class="ion ion-chatbubbles"></i>
                     Yorum Yapın </h4></div>
                 <form name="commentForm" novalidate="" ng-submit="commentForm.$valid && saveComment()">
-                    <label class="item item-input border"  ng-class="{ 'has-errors' : commentForm.subject.$invalid, 'no-errors' : commentForm.subject.$valid}">
+                    <label class="item item-input border"
+                           ng-class="{ 'has-errors' : commentForm.subject.$invalid, 'no-errors' : commentForm.subject.$valid}">
                         <span class="input-label">Konu</span>
-                        <input type="text" ng-model="commentModel.Title" name="subject" placeholder="Konu" required="required">
+                        <input type="text" ng-model="commentModel.Title" name="subject" placeholder="Konu"
+                               required="required">
                     </label>
-                    <label class="item item-input border"  ng-class="{ 'has-errors' : commentForm.body.$invalid, 'no-errors' : commentForm.body.$valid}">
+                    <label class="item item-input border"
+                           ng-class="{ 'has-errors' : commentForm.body.$invalid, 'no-errors' : commentForm.body.$valid}">
                         <span class="input-label">Yorumunuz</span>
-                        <textarea ng-model="commentModel.Body" name="body" placeholder="Yorumunuzu buraya yazınız..."  required="required"></textarea>
+                        <textarea ng-model="commentModel.Body" name="body" placeholder="Yorumunuzu buraya yazınız..."
+                                  required="required"></textarea>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <div class="im-wrapper">
-                            <button type="submit" class="button button-balanced button-raised icon-right ion-ios-color-energized right"
+                            <button type="submit"
+                                    class="button button-balanced button-raised icon-right ion-ios-color-energized right"
                                     data-ink-color="#FFFFFF"
                                     data-ink-opacity=".8">Yorum Yap
                             </button>
                         </div>
                     </label>
                 </form>
+                <br/>
+                <br/>
+                <br/>
+            </div>
 
+            <div class="list im-wrapper" ng-show="{{!isLoggedUser}}">
+                <p>Yorum yapabilmek için üye girişi yapmış olmanız gerekmektedir.</p>
             </div>
         </div>
 

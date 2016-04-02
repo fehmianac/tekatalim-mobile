@@ -102,7 +102,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             views: {
                 'menuContent': {
                     templateUrl: 'templates/auth/profile.html',
-                    controller: 'LoginCtrl'
+                    controller: 'UserController',
+                    pageType: "profile"
                 }
             }
         })
@@ -138,7 +139,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
             views: {
                 'menuContent': {
                     templateUrl: 'templates/auth/register.html',
-                    controller: 'LoginCtrl'
+                    controller: 'UserController'
                 }
             }
         })

@@ -13,7 +13,6 @@ app.filter('fulldate', function () {
     var days = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
     return function (input) {
         var date = new Date(input);
-        if (days[date.getDay()] == undefined)
         return date.ddmmyyyyhhmm() + " " + days[date.getDay()];
     };
 });

@@ -2,7 +2,7 @@
  * Created by fehmi on 30.03.2016.
  */
 
-app.controller('DashboardCtrl', function($scope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $ionicSlideBoxDelegate, $stateParams, AjaxServices) {
+app.controller('DashboardCtrl', function ($scope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $ionicSlideBoxDelegate, $stateParams, $rootScope, AjaxServices) {
 
 
     if ($stateParams.articleId) {
@@ -11,48 +11,48 @@ app.controller('DashboardCtrl', function($scope, $ionicModal, $ionicPopover, $io
             Title: "",
             Body: ""
         };
-        $scope.saveComment = function() {
+        $scope.saveComment = function () {
             var request = {
                 title: $scope.commentModel.Title,
                 comment: $scope.commentModel.Body
             };
-            AjaxServices.post("article/" + $stateParams.articleId + "/comment", request).then(function(data) {
+            AjaxServices.post("article/" + $stateParams.articleId + "/comment", request).then(function (data) {
                 $ionicPopup.alert({
                     title: 'Başarılı...',
                     template: 'Yorumunu< başarı ile kayıt edilmiştir. Yönetici onayından sonra yayınlanacaktır.'
                 });
                 $rootScope.$broadcast('getCurrentUser');
                 $scope.article = data.Result;
-            }).catch(function(e) {
+            }).catch(function (e) {
                 $ionicPopup.alert({
                     title: 'Hata...',
                     template: 'Yorumunuz kayıt edilemedi. Lütfen daha sonra tekrar deneyiniz.'
                 });
             });
         };
-        AjaxServices.get("article/" + $stateParams.articleId).then(function(data) {
+        AjaxServices.get("article/" + $stateParams.articleId).then(function (data) {
             $scope.article = data.Result;
         });
     } else {
 
         $scope.slides = [];
-        AjaxServices.get("common/slider").then(function(data) {
+        AjaxServices.get("common/slider").then(function (data) {
             $scope.slides = data.Result;
-            setTimeout(function() {
+            setTimeout(function () {
                 $ionicSlideBoxDelegate.slide(0);
                 $ionicSlideBoxDelegate.update();
 
                 $scope.$apply();
             });
-            setInterval(function() {
+            setInterval(function () {
                 $ionicSlideBoxDelegate.next();
             }, 4000)
         });
 
-        $scope.doRefresh = function() {
+        $scope.doRefresh = function () {
             $scope.todayArticleList = [];
             $scope.articleList = [];
-            AjaxServices.get("article/today").then(function(data) {
+            AjaxServices.get("article/today").then(function (data) {
                 $scope.todayArticleList = data.Result;
                 $scope.$broadcast('scroll.refreshComplete');
             });

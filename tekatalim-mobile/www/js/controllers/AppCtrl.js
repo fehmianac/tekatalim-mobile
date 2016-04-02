@@ -1,22 +1,38 @@
 ﻿app.controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, $rootScope, $ionicLoading, $timeout, $cookies, AjaxServices) {
     // Form data for the login modal
 
-    $rootScope.hideLogin = true;
-    $rootScope.hideProfile = true;
+    $rootScope.isLoggedUser = false;
+
+    setInterval(function () {
+        var token = $cookies.get("token");
+        if (token == undefined) {
+            token = localStorage.getItem('token');
+        }
+        if (token == undefined) {
+            $rootScope.isLoggedUser = false;
+        } else {
+            //TODO check valid token
+            $rootScope.isLoggedUser = true;
+        }
+        $rootScope.$apply();
+    }, 1000);
 
     $scope.getCurrentUser = function () {
         AjaxServices.get("user/current-user").then(function (data) {
             $rootScope.user = data.Result;
-            setInterval(function () {
-                $rootScope.hideProfile = false;
-            }, 10);
 
         }).catch(function (e) {
-            setInterval(function () {
-                $rootScope.hideLogin = false;
-            }, 10);
+            if (e == 401) {
+                $cookies.remove("token");
+                localStorage.removeItem("token");
+            }
+            ;
         });
     };
+
+    setInterval(function () {
+        $scope.getCurrentUser();
+    }, 60000);
 
     $scope.getCurrentUser();
     $rootScope.$on('getCurrentUser', function () {
@@ -28,8 +44,7 @@
     $scope.logout = function () {
         AjaxServices.post("auth/logout").then(function () {
             $cookies.remove("token");
-            $rootScope.hideProfile = true;
-            $rootScope.hideLogin = false;
+            localStorage.removeItem("token");
             $rootScope.$broadcast('getCurrentUser');
         });
     };

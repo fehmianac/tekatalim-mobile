@@ -9,10 +9,8 @@
                 </div>
                 <div ng-repeat="article in articleList">
                     <div class="list card stable-bg im-wrapper">
-                        <div class="item">
-                            <div class="bar bar-subheader bar-stable static text-center">
-                                <strong class="title">{{article.Title}}</strong>
-                            </div>
+                        <div class="bar bar-subheader bar-stable static text-center">
+                            <a  href="#/app/article/detail/{{article.Id}}"><strong class="title">{{article.Title}}</strong></a>
                         </div>
                         <div class="item item-body" ng-bind-html="article.Body">
                         </div>

@@ -9,23 +9,21 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
         Password: ""
     };
     $scope.login = function () {
-        debugger;
         var request = {
             UserName: $scope.loginModel.UserName,
             Password: $scope.loginModel.Password
         };
         AjaxServices.post("auth/login", request).then(function (data) {
             if (data.data.Result != null) {
-                setInterval(function () {
-                    $rootScope.hideLogin = true;
-                    $rootScope.hideProfile = false;
-                    //Login başarılı ise dashboard'a git
-                    $state.go("app.dashboard");
-                }, 10);
+                $rootScope.user = data.data.Result;
+                localStorage.setItem("token", data.data.Result);
                 $cookies.put('token', data.data.Result);
+                setTimeout(function () {
+                    $state.go("app.dashboard");
+                    $rootScope.$broadcast('getCurrentUser');
+                }, 500);
             }
-            $scope.article = data.Result;
-            $rootScope.$broadcast('getCurrentUser');
+
         }).catch(function (e) {
             var message = "Üzgünüz sistemsel bir sorundan dolayı giriş yapamıyorsunuz. Lütfen daha sonra tekrar deneyiniz.";
             if (e.status == 404) {
@@ -35,43 +33,6 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
             }
             if (message != "") {
                 NotificationServices.error(message);
-            }
-        });
-    };
-
-    $scope.registerModel = {
-        UserName: "",
-        Password: "",
-        Email: "",
-        Name: "",
-        LastName: "",
-        PhoneNumber: "",
-        TcNo: "",
-        BirthDate: ""
-    };
-
-    $scope.register = function () {
-        var request = {
-            UserName: $scope.registerModel.UserName,
-            Password: $scope.registerModel.Password,
-            Email: $scope.registerModel.Email,
-            Name: $scope.registerModel.Name,
-            LastName: $scope.registerModel.LastName,
-            PhoneNumber: $scope.registerModel.PhoneNumber,
-            TcNo: $scope.registerModel.TcNo,
-            BirthDate: $scope.registerModel.BirthDate
-        };
-        AjaxServices.post("user/register", request).then(function (data) {
-            $scope.loginModel = {
-                UserName: $scope.registerModel.UserName,
-                Password: $scope.registerModel.Password
-            };
-            $scope.login();
-            NotificationServices.success('Merhaba ' + $scope.registerModel.UserName + ' Tekatalim.com"a hoşgeldin. Üyeliğiniz başarı ike kayıt ettik');
-
-        }).catch(function (e) {
-            if(e.status == 400){
-                NotificationServices.error(e.data);
             }
         });
     };
@@ -93,41 +54,6 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
             });
         });
     };
-
-    $scope.getCurrentUser = function () {
-        AjaxServices.get("user/current-user").then(function (data) {
-            $scope.profileModel = data.Result;
-            $scope.profileModel.BirthDate = new Date($scope.profileModel.BirthDate);
-        }).catch(function (e) {
-        });
-    };
-    $scope.getCurrentUser();
-
-    $scope.updateProfile = function () {
-        var request = {
-            UserName: $scope.profileModel.UserName,
-            Email: $scope.profileModel.Email,
-            Name: $scope.profileModel.Name,
-            LastName: $scope.profileModel.LastName,
-            PhoneNumber: $scope.profileModel.PhoneNumber,
-            TcNo: $scope.profileModel.TC,
-            BirthDate: $scope.profileModel.BirthDate
-        };
-
-        AjaxServices.post("user/profile/" + $scope.profileModel.Id, request).then(function (data) {
-            $ionicPopup.alert({
-                title: 'Başarılı...',
-                template: 'Merhaba ' + $scope.profileModel.UserName + ' Profilin başarı ile güncellendi.'
-            });
-        }).catch(function () {
-            $ionicPopup.alert({
-                title: 'Hata...',
-                template: 'Üzgünüz progilini güncelleyemedik. Lütfen tekrar deneyiniz.'
-            });
-        });
-    };
-
-
 
     $scope.goToForgetPassword = function () {
         $state.go('app.forget-password')

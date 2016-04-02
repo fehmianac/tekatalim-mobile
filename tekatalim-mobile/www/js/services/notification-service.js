@@ -5,7 +5,7 @@
 
 app.factory('NotificationServices', function ($http, $q, $rootScope, $ionicPopup, $cookies) {
 
-    this.succes = function (message) {
+    this.success = function (message) {
         $ionicPopup.alert({
             title: 'Başarılı...',
             template: message

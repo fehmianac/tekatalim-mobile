@@ -26,6 +26,7 @@
     <script src="js/controllers/AppCtrl.js"></script>
     <script src="js/controllers/DashboardCtrl.js"></script>
     <script src="js/controllers/article-controller.js"></script>
+    <script src="js/controllers/user-controller.js"></script>
     <script src="js/controllers/login-controller.js"></script>
     <script src="js/controllers/common-controller.js"></script>
     <script src="js/controllers/InkCtrl.js"></script>
@@ -55,10 +56,10 @@
         <ion-tab title="&#xD6;deme Bildirimi" icon-on="ion-cash" href="#/app/payment-declaration" icon-off="ion-cash">
             <!-- Tab 2 content -->
         </ion-tab>
-        <ion-tab title="Giri&#x15F;" icon-on="ion-log-in" href="#/app/login" icon-off="ion-log-in" hidden="{{hideLogin}}">
+        <ion-tab title="Giri&#x15F;" icon-on="ion-log-in" href="#/app/login" icon-off="ion-log-in" hidden="{{isLoggedUser}}">
             <!-- Tab 3 content -->
         </ion-tab>
-        <ion-tab title="Profil" icon-on="ion-person" badge="user.Credit" href="#/app/profile" icon-off="ion-person" hidden="{{hideProfile}}">
+        <ion-tab title="Profil" icon-on="ion-person" badge="user.Credit" href="#/app/profile" icon-off="ion-person" hidden="{{!isLoggedUser}}">
             <!-- Tab 3 content -->
         </ion-tab>
     </ion-tabs>

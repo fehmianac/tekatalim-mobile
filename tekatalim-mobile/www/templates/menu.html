@@ -44,15 +44,15 @@
                 <ion-item nav-clear menu-close href="#/app/contact-form">
                     İletişim
                 </ion-item>
-                <ion-item nav-clear menu-close href="#/app/login" ng-hide="hideLogin">
+                <ion-item nav-clear menu-close href="#/app/login" ng-hide="isLoggedUser">
                     Giriş Yap
                 </ion-item>
 
-                <ion-item nav-clear menu-close href="#/app/profile" ng-hide="hideProfile">
+                <ion-item nav-clear menu-close href="#/app/profile" ng-hide="!isLoggedUser">
                     Profil
                 </ion-item>
 
-                <ion-item nav-clear menu-close ng-click="logout();" ng-hide="hideProfile">
+                <ion-item nav-clear menu-close ng-click="logout();" ng-hide="!isLoggedUser">
                     Çıkış
                 </ion-item>
                 <!--<ion-item nav-clear menu-close href="#/app/components">

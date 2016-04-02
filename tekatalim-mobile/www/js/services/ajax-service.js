@@ -13,10 +13,13 @@ app.factory('AjaxServices', function ($http, $q, $rootScope, $cookies) {
         get: function (urlAddress, request, successCallback, errorCallback) {
             var config = {
                 headers: {
-                    'Token': $cookies.get('token')
+                    'Token': localStorage.getItem('token')
                 }
             };
 
+            if (config.headers.Token == undefined) {
+                config.headers.Token = $cookies.get('token');
+            }
             if (urlAddress != "user/current-user") {
                 $rootScope.$broadcast('loadingShow');
             }
@@ -45,9 +48,17 @@ app.factory('AjaxServices', function ($http, $q, $rootScope, $cookies) {
 
             var config = {
                 headers: {
-                    'Token': $cookies.get('token')
+                    'Token': localStorage.getItem('token')
                 }
             };
+
+            if (config.headers.Token == undefined) {
+                config.headers.Token = $cookies.get('token');
+            }
+
+            if (config.headers.Token == undefined) {
+                config.headers.Token = localStorage.getItem('token');
+            }
             var deferred = $q.defer();
             var serviceCall = $http.put(apiUrl + urlAddress, request, config);
 
@@ -80,6 +91,15 @@ app.factory('AjaxServices', function ($http, $q, $rootScope, $cookies) {
                     }
                 };
             }
+            var config = {
+                headers: {
+                    'Token': localStorage.getItem('token')
+                }
+            };
+
+            if (config.headers.Token == undefined) {
+                config.headers.Token = $cookies.get('token');
+            }
             var deferred = $q.defer();
 
             var serviceCall = $http.post(apiUrl + urlAddress, request, config);
@@ -107,7 +127,10 @@ app.factory('AjaxServices', function ($http, $q, $rootScope, $cookies) {
                 method: "DELETE",
                 url: apiUrl + urlAddress,
                 data: request,
-                headers: {'Token': $cookies.get('token'), 'Content-Type': 'application/json'}
+                headers: {
+                    'Token': $cookies.get('token') == undefined ? localStorage.getItem('token') : $cookies.get('token'),
+                    'Content-Type': 'application/json'
+                }
             }).then(function (result) {
                 $rootScope.$broadcast('loadingHide');
                 deferred.resolve(result);
