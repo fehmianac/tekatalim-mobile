@@ -24,6 +24,11 @@
                     <input type="email" ng-model="registerModel.Email" name="email" placeholder="E-Posta Adresiniz"
                            required="required">
                 </label>
+                <div class="error" ngmessage="minlength"
+                     ng-show="registerForm.$submitted && registerForm.email.$error.email">
+                    <i class="ion-information-circled"></i>
+                    E-Posta formatı yanlış.
+                </div>
                 <label class="item item-input border">
                     <span class="input-label">Adınız</span>
                     <input type="text" ng-model="registerModel.Name" placeholder="Adınız">

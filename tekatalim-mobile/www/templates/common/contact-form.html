@@ -13,6 +13,11 @@
                     <span class="input-label">E-Posta Adresiniz <span class="assertive">*</span></span>
                     <input type="email" ng-model="contactFormModel.Email" name="email" placeholder="E-Posta Adresiniz" required="required">
                 </label>
+                <div class="error" ngmessage="minlength"
+                     ng-show="contactForm.$submitted && contactForm.email.$error.email">
+                    <i class="ion-information-circled"></i>
+                    E-Posta formatı yanlış.
+                </div>
                 <label class="item item-input border">
                     <span class="input-label">Konu</span>
                     <input type="text" ng-model="contactFormModel.Subject" placeholder="Konu">
