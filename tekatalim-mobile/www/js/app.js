@@ -6,6 +6,7 @@
 var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages']);
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
+//window.appSettings.apiUrl = "http://apidev.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://localhost:58204/api/";
 Date.prototype.ddmmyyyy = function () {
     var yyyy = this.getFullYear();

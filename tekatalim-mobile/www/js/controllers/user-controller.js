@@ -26,7 +26,7 @@ app.controller('UserController', function ($scope, $rootScope, $ionicModal, $ion
             Name: $scope.registerModel.Name,
             LastName: $scope.registerModel.LastName,
             PhoneNumber: $scope.registerModel.PhoneNumber,
-            TcNo: $scope.registerModel.TcNo,
+            TC: $scope.registerModel.TcNo,
             BirthDate: $scope.registerModel.BirthDate
         };
         AjaxServices.post("user/register", request).then(function (data) {
@@ -61,7 +61,7 @@ app.controller('UserController', function ($scope, $rootScope, $ionicModal, $ion
             Name: $scope.profileModel.Name,
             LastName: $scope.profileModel.LastName,
             PhoneNumber: $scope.profileModel.PhoneNumber,
-            TcNo: $scope.profileModel.TC,
+            TC: $scope.profileModel.TC,
             BirthDate: $scope.profileModel.BirthDate
         };
 

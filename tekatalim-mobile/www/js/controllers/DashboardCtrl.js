@@ -2,7 +2,7 @@
  * Created by fehmi on 30.03.2016.
  */
 
-app.controller('DashboardCtrl', function ($scope, $ionicModal, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $ionicSlideBoxDelegate, $stateParams, $rootScope, AjaxServices) {
+app.controller('DashboardCtrl', function ($scope, $ionicModal, $ionicHistory, $ionicPopover, $ionicLoading, $ionicPopup, $timeout, $ionicSlideBoxDelegate, $stateParams, $rootScope, AjaxServices) {
 
 
     if ($stateParams.articleId) {
@@ -34,7 +34,7 @@ app.controller('DashboardCtrl', function ($scope, $ionicModal, $ionicPopover, $i
             $scope.article = data.Result;
         });
     } else {
-
+        $ionicHistory.clearCache();
         $scope.slides = [];
         AjaxServices.get("common/slider").then(function (data) {
             $scope.slides = data.Result;
