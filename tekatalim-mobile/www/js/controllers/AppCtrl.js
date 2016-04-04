@@ -20,6 +20,7 @@
     $scope.getCurrentUser = function () {
         AjaxServices.get("user/current-user").then(function (data) {
             $rootScope.user = data.Result;
+            $rootScope.$apply();
 
         }).catch(function (e) {
             if (e == 401) {

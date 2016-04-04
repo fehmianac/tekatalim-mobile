@@ -8,21 +8,21 @@ window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://apidev.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://localhost:58204/api/";
-Date.prototype.ddmmyyyy = function () {
+Date.prototype.ddmmyyyy = function() {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return dd + "." + mm + "." + yyyy;
 };
 
-Date.prototype.yyyymmdd = function () {
+Date.prototype.yyyymmdd = function() {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return yyyy + "-" + mm + "-" + dd;
 };
 
-Date.prototype.ddmmyyyyhhmm = function () {
+Date.prototype.ddmmyyyyhhmm = function() {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
@@ -31,11 +31,11 @@ Date.prototype.ddmmyyyyhhmm = function () {
     return dd + "." + mm + "." + yyyy + " " + hh + ":" + min;
 };
 
-window.onerror = function (e) {
+window.onerror = function(e) {
     alert(JSON.stringify(e));
 }
-app.run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
+app.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
 
@@ -45,10 +45,20 @@ app.run(function ($ionicPlatform) {
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+
+        var push = new Ionic.Push({
+            "debug": true
+        });
+        
+        push.register(function(token) {
+            console.log("Device token:", token.token);
+            push.saveToken(token);  // persist the token in the Ionic Platform
+        });
+
     });
 })
 
-app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
 
     $ionicConfigProvider.platform.android.views.transition('none');
@@ -153,7 +163,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 }
             }
         })
-    ;
+        ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');
