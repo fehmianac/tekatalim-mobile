@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages']);
+var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages','ionic.service.push']);
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://apidev.tekatalim.com/api/";
@@ -46,6 +46,16 @@ app.run(function($ionicPlatform) {
             StatusBar.styleDefault();
         }
 
+        //automatically deploy
+
+        var deploy = new Ionic.Deploy();
+
+        // Check Ionic Deploy for new code
+        deploy.check().then(function(hasUpdate) {
+            console.log('Ionic Deploy: Update available: ' + hasUpdate);
+        }, function(err) {
+            console.error('Ionic Deploy: Unable to check for updates', err);
+        });
         var push = new Ionic.Push({
             "debug": true
         });
