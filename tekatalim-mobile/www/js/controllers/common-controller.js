@@ -23,6 +23,12 @@ app.controller('CommonCtrl', function($scope, $rootScope, $ionicModal, $ionicPop
                 title: 'Başarılı...',
                 template: 'Mesajınız yöneticimize ulaştı. En kısa zamanda E-Mail ile tarafınızıa dönüş yapılacaktır.'
             });
+            $scope.contactFormModel = {
+                FullName: "",
+                Email: "",
+                Subject: "",
+                Body: ""
+            };
         }).catch(function() {
             $ionicPopup.alert({
                 title: 'Hata...',
@@ -56,6 +62,7 @@ app.controller('CommonCtrl', function($scope, $rootScope, $ionicModal, $ionicPop
                 title: 'Başarılı...',
                 template: 'Ödeme bildiriminiz yöneticimize ulaştı. En kısa zamanda krediniz yüklenecektir.'
             });
+
             $scope.paymentDeclaration = {
                 UserName: "",
                 FullName: "",

@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages','ionic.service.push']);
+var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages']);
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://apidev.tekatalim.com/api/";
@@ -32,7 +32,7 @@ Date.prototype.ddmmyyyyhhmm = function() {
 };
 
 window.onerror = function(e) {
-    alert(JSON.stringify(e));
+  console.log(JSON.stringify(e));
 }
 app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -47,8 +47,7 @@ app.run(function($ionicPlatform) {
         }
 
         //automatically deploy
-
-        var deploy = new Ionic.Deploy();
+      var deploy = new Ionic.Deploy();
 
         // Check Ionic Deploy for new code
         deploy.check().then(function(hasUpdate) {
@@ -59,8 +58,10 @@ app.run(function($ionicPlatform) {
         var push = new Ionic.Push({
             "debug": true
         });
-        
+
+        debugger;
         push.register(function(token) {
+            alert(token);
             console.log("Device token:", token.token);
             push.saveToken(token);  // persist the token in the Ionic Platform
         });

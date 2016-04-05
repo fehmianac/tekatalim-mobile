@@ -15,12 +15,15 @@
             $rootScope.isLoggedUser = true;
         }
         $rootScope.$apply();
-    }, 1000);
+    }, 10000);
 
     $scope.getCurrentUser = function() {
         AjaxServices.get("user/current-user").then(function(data) {
             $rootScope.user = data.Result;
-            $rootScope.$apply();
+            setTimeout(function () {
+                $rootScope.$apply();
+            },10);
+
 
         }).catch(function(e) {
             if (e == 401) {

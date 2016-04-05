@@ -19,10 +19,13 @@ app.controller('DashboardCtrl', function ($scope, $ionicModal, $ionicHistory, $i
             AjaxServices.post("article/" + $stateParams.articleId + "/comment", request).then(function (data) {
                 $ionicPopup.alert({
                     title: 'Başarılı...',
-                    template: 'Yorumunu< başarı ile kayıt edilmiştir. Yönetici onayından sonra yayınlanacaktır.'
+                    template: 'Yorumunuz başarı ile kayıt edilmiştir. Yönetici onayından sonra yayınlanacaktır.'
                 });
+                $scope.commentModel = {
+                    Title: "",
+                    Body: ""
+                };
                 $rootScope.$broadcast('getCurrentUser');
-                $scope.article = data.Result;
             }).catch(function (e) {
                 $ionicPopup.alert({
                     title: 'Hata...',
