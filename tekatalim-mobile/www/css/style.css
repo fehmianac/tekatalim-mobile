@@ -52,7 +52,7 @@ p {
 
 .menu .bar.bar-header.expanded {
     /*background-image: url('../img/material-graphite.jpg');*/
-    background-image: url('http://api.tekatalim.com/content/image/material-graphite.jpg');
+    background-image: url('http://api.tekatalim.com/content/image/material-graphite.jpg') !important;
     background-size: 120%;
     background-position: 0%;
     transition: all .5s ease-in-out;
