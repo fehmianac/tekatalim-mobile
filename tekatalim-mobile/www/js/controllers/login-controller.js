@@ -62,10 +62,14 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
         });
     };
 
+
     $scope.goToForgetPassword = function () {
         $state.go('app.forget-password')
     };
     $scope.goToRegister = function () {
         $state.go('app.register')
     };
+
+    
+
 });

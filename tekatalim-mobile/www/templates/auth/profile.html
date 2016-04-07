@@ -32,17 +32,24 @@
                 <span class="input-label">Doğum Tarihiniz</span>
                 <input type="date" ng-model="profileModel.BirthDate" placeholder="Doğum Tarihiniz">
             </label>
-            <label class="item item-input item-stacked-label im-wrapper">
+            <div class="item item-input item-stacked-label im-wrapper">
+                <span class="col-50">
                 <button class="button button-energized button-raised icon-right ion-ios-color-energized"
-                        ng-click="updateProfile()" data-ink-color="#FFFFFF"
+                        ng-click="goToChangePassword()" data-ink-color="#FFFFFF"
                         data-ink-opacity=".8">Şifremi Değiştir
                 </button>
+                    </span>
+
+              <span class="col-50">
                 <button class="button button-balanced button-raised icon-right ion-ios-color-energized right"
                         ng-click="updateProfile()" data-ink-color="#FFFFFF"
                         data-ink-opacity=".8">Güncelle
                 </button>
-            </label>
+                   </span>
+            </div>
         </div>
-        <div class="im-wrapper">Sistemde kullanabileceğiniz Toplam: <b>{{profileModel.Credit}}</b> krediniz bulunmaktadır.</div>
+        <div class="im-wrapper">Sistemde kullanabileceğiniz Toplam: <b>{{profileModel.Credit}}</b> krediniz
+            bulunmaktadır.
+        </div>
     </ion-content>
 </ion-view>

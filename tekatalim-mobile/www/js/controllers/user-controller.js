@@ -78,7 +78,30 @@ app.controller('UserController', function ($scope, $rootScope, $ionicModal, $ion
         });
     };
 
+    $scope.changePasswordModel = {
+        NewPassword: "",
+        OldPassword: ""
+    };
 
+    $scope.changePassword = function(){
+        AjaxServices.post("auth/change-password", $scope.changePasswordModel).then(function (data) {
+            $ionicPopup.alert({
+                title: 'Başarılı...',
+                template: 'Şifreniz başarı ile değiştirilmiştir.'
+            });
+        }).catch(function (e) {
+            if(e.status == 400){
+                $ionicPopup.alert({
+                    title: 'Hata...',
+                    template: 'Eski şifreniz yanlış. Lütfen tekrar deneyiniz'
+                });
+            }
+        });
+    };
+
+    $scope.goToChangePassword = function () {
+        $state.go('app.change-password')
+    };
     $scope.goToForgetPassword = function () {
         $state.go('app.forget-password')
     };

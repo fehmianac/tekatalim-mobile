@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages']);
+var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages','ionic.service.analytics']);
 window.pushToken = {};
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
@@ -35,18 +35,24 @@ Date.prototype.ddmmyyyyhhmm = function () {
 window.onerror = function (e) {
     console.log(JSON.stringify(e));
 }
-app.run(function ($ionicPlatform, AjaxServices) {
+app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         try {
-
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             }
         } catch (e) {
 
         }
+
+        try {
+            $ionicAnalytics.register();
+        } catch (e) {
+
+        }
+
 
 
         if (window.StatusBar) {
@@ -192,6 +198,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 'menuContent': {
                     templateUrl: 'templates/auth/forget-password.html',
                     controller: 'LoginCtrl'
+                }
+            }
+        })
+        .state('app.change-password', {
+            url: '/change-password',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/auth/change-password.html',
+                    controller: 'UserController'
                 }
             }
         })

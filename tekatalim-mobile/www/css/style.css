@@ -234,3 +234,8 @@ margin-top:10px;
     display: block;
     position: static;
 }
+
+
+.button.button-assertive{
+    margin-top:7px;
+}
