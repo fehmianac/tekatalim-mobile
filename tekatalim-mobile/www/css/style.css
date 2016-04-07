@@ -228,3 +228,9 @@ margin-top:10px;
 .right{
     float: right;
 }
+
+.bar.bar-stable{
+    top: 0;
+    display: block;
+    position: static;
+}

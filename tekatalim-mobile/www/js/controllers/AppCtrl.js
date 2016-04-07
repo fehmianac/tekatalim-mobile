@@ -2,7 +2,7 @@
     // Form data for the login modal
 
     $rootScope.isLoggedUser = false;
-
+    $rootScope.credit = 0;
     setInterval(function() {
         var token = $cookies.get("token");
         if (token == undefined) {
@@ -20,6 +20,7 @@
     $scope.getCurrentUser = function() {
         AjaxServices.get("user/current-user").then(function(data) {
             $rootScope.user = data.Result;
+            $rootScope.credit = data.Result.Credit;
             setTimeout(function () {
                 $rootScope.$apply();
             },10);

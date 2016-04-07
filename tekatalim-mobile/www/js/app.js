@@ -4,25 +4,26 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages']);
+window.pushToken = {};
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://apidev.tekatalim.com/api/";
 //window.appSettings.apiUrl = "http://localhost:58204/api/";
-Date.prototype.ddmmyyyy = function() {
+Date.prototype.ddmmyyyy = function () {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return dd + "." + mm + "." + yyyy;
 };
 
-Date.prototype.yyyymmdd = function() {
+Date.prototype.yyyymmdd = function () {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
     return yyyy + "-" + mm + "-" + dd;
 };
 
-Date.prototype.ddmmyyyyhhmm = function() {
+Date.prototype.ddmmyyyyhhmm = function () {
     var yyyy = this.getFullYear();
     var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
     var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
@@ -31,45 +32,65 @@ Date.prototype.ddmmyyyyhhmm = function() {
     return dd + "." + mm + "." + yyyy + " " + hh + ":" + min;
 };
 
-window.onerror = function(e) {
-  console.log(JSON.stringify(e));
+window.onerror = function (e) {
+    console.log(JSON.stringify(e));
 }
-app.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
+app.run(function ($ionicPlatform, AjaxServices) {
+    $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
+        try {
 
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+        } catch (e) {
+
         }
+
+
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-
         //automatically deploy
-      var deploy = new Ionic.Deploy();
+        var deploy = new Ionic.Deploy();
 
         // Check Ionic Deploy for new code
-        deploy.check().then(function(hasUpdate) {
+        deploy.check().then(function (hasUpdate) {
+            if (hasUpdate) {
+                deploy.update().then(function (res) {
+                    console.log('Ionic Deploy: Update Success! ', res);
+                }, function (err) {
+                    console.log('Ionic Deploy: Update error! ', err);
+                }, function (prog) {
+                    console.log('Ionic Deploy: Progress... ', prog);
+                });
+            }
             console.log('Ionic Deploy: Update available: ' + hasUpdate);
-        }, function(err) {
+        }, function (err) {
             console.error('Ionic Deploy: Unable to check for updates', err);
         });
         var push = new Ionic.Push({
             "debug": true
         });
 
-        debugger;
-        push.register(function(token) {
-            alert(token);
-            console.log("Device token:", token.token);
+        var isAndroid = ionic.Platform.isAndroid();
+        var platform = "";
+        if (isAndroid) {
+            platform = "android";
+        }
+        push.register(function (token) {
+            AjaxServices.post("user/token", {pushToken: token.token, platform: platform}).then(function (data) {
+
+            });
+            window.pushToken = token;
             push.saveToken(token);  // persist the token in the Ionic Platform
         });
 
     });
 })
 
-app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
 
     $ionicConfigProvider.platform.android.views.transition('none');
@@ -174,7 +195,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 }
             }
         })
-        ;
+    ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');

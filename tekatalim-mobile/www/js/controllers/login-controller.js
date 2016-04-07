@@ -18,10 +18,17 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPop
                 $rootScope.user = data.data.Result;
                 localStorage.setItem("token", data.data.Result);
                 $cookies.put('token', data.data.Result);
-                setTimeout(function () {
-                    $state.go("app.dashboard");
-                    $rootScope.$broadcast('getCurrentUser');
-                }, 500);
+                AjaxServices.post("user/token/match", {pushToken: window.pushToken.token}).then(function (data) {
+                    setTimeout(function () {
+                        $state.go("app.dashboard");
+                        $rootScope.$broadcast('getCurrentUser');
+                    }, 500);
+                }).catch(function () {
+                    setTimeout(function () {
+                        $state.go("app.dashboard");
+                        $rootScope.$broadcast('getCurrentUser');
+                    }, 500);
+                });
             }
 
         }).catch(function (e) {
