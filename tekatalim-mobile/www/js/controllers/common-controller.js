@@ -60,7 +60,7 @@ app.controller('CommonCtrl', function($scope, $rootScope, $ionicModal, $ionicPop
         AjaxServices.post("common/payment-declaration", request).then(function(data) {
             $ionicPopup.alert({
                 title: 'Başarılı...',
-                template: 'Ödeme bildiriminiz yöneticimize ulaştı. En kısa zamanda krediniz yüklenecektir.'
+                template: 'Ödeme bildiriminiz yöneticimize ulaştı. En kısa zamanda gününüz yüklenecektir.'
             });
 
             $scope.paymentDeclaration = {

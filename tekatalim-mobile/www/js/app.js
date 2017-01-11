@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages','ionic.service.analytics']);
+var app = angular.module('starter', ['ionic', 'ionic-material', 'ngCookies', 'ngMessages', 'ionic.service.analytics']);
 window.pushToken = {};
 window.appSettings = {};
 window.appSettings.apiUrl = "http://api.tekatalim.com/api/";
@@ -52,30 +52,11 @@ app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
         } catch (e) {
 
         }
-
-
-
+        
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-        //automatically deploy
-        var deploy = new Ionic.Deploy();
 
-        // Check Ionic Deploy for new code
-        deploy.check().then(function (hasUpdate) {
-            if (hasUpdate) {
-                deploy.update().then(function (res) {
-                    console.log('Ionic Deploy: Update Success! ', res);
-                }, function (err) {
-                    console.log('Ionic Deploy: Update error! ', err);
-                }, function (prog) {
-                    console.log('Ionic Deploy: Progress... ', prog);
-                });
-            }
-            console.log('Ionic Deploy: Update available: ' + hasUpdate);
-        }, function (err) {
-            console.error('Ionic Deploy: Unable to check for updates', err);
-        });
         var push = new Ionic.Push({
             "debug": true
         });
@@ -84,9 +65,11 @@ app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
         var platform = "";
         if (isAndroid) {
             platform = "android";
+        } else {
+            platform = "ios";
         }
         push.register(function (token) {
-            AjaxServices.post("user/token", {pushToken: token.token, platform: platform}).then(function (data) {
+            AjaxServices.post("user/token", { pushToken: token.token, platform: platform }).then(function (data) {
 
             });
             window.pushToken = token;
@@ -210,7 +193,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
                 }
             }
         })
-    ;
+        ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');
