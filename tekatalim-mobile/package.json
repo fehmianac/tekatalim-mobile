@@ -28,7 +28,8 @@
       "locator": "phonegap-plugin-push",
       "id": "phonegap-plugin-push"
     },
-    "ionic-plugin-deploy"
+    "ionic-plugin-deploy",
+    "phonegap-plugin-push"
   ],
   "cordovaPlatforms": [
     "android"

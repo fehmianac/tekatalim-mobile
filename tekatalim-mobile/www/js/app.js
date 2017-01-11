@@ -52,28 +52,38 @@ app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
         } catch (e) {
 
         }
-        
+
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
 
-        var push = new Ionic.Push({
-            "debug": true
+        var push = PushNotification.init({
+            android: {
+                senderID: "1000330486764"
+            },
+            browser: {
+                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+            },
+            ios: {
+                alert: "true",
+                badge: true,
+                sound: 'false'
+            },
+            windows: {}
         });
 
-        var isAndroid = ionic.Platform.isAndroid();
-        var platform = "";
-        if (isAndroid) {
-            platform = "android";
-        } else {
-            platform = "ios";
-        }
-        push.register(function (token) {
+        push.on('registration', function (data) {
+            var isAndroid = ionic.Platform.isAndroid();
+            var platform = "";
+            if (isAndroid) {
+                platform = "android";
+            } else {
+                platform = "ios";
+            }
             AjaxServices.post("user/token", { pushToken: token.token, platform: platform }).then(function (data) {
 
             });
-            window.pushToken = token;
-            push.saveToken(token);  // persist the token in the Ionic Platform
+            window.pushToken = data.registrationId;
         });
 
     });

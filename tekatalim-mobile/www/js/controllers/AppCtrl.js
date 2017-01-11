@@ -1,9 +1,17 @@
-﻿app.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $rootScope, $ionicLoading, $timeout, $cookies, AjaxServices) {
+﻿app.controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, ionicPush, $rootScope, $ionicLoading, $timeout, $cookies, AjaxServices) {
     // Form data for the login modal
+    $ionicPush.register().then(function (t) {
+        AjaxServices.post("user/token", { pushToken: token.token, platform: platform }).then(function (data) {
 
+        });
+        window.pushToken = t;
+        return $ionicPush.saveToken(t);
+    }).then(function (t) {
+        console.log('Token saved:', t.token);
+    });
     $rootScope.isLoggedUser = false;
     $rootScope.credit = 0;
-    setInterval(function() {
+    setInterval(function () {
         var token = $cookies.get("token");
         if (token == undefined) {
             token = localStorage.getItem('token');
@@ -17,16 +25,16 @@
         $rootScope.$apply();
     }, 10000);
 
-    $scope.getCurrentUser = function() {
-        AjaxServices.get("user/current-user").then(function(data) {
+    $scope.getCurrentUser = function () {
+        AjaxServices.get("user/current-user").then(function (data) {
             $rootScope.user = data.Result;
             $rootScope.credit = data.Result.Credit;
             setTimeout(function () {
                 $rootScope.$apply();
-            },10);
+            }, 10);
 
 
-        }).catch(function(e) {
+        }).catch(function (e) {
             if (e == 401) {
                 $cookies.remove("token");
                 localStorage.removeItem("token");
@@ -35,19 +43,19 @@
         });
     };
 
-    setInterval(function() {
+    setInterval(function () {
         $scope.getCurrentUser();
     }, 60000);
 
     $scope.getCurrentUser();
-    $rootScope.$on('getCurrentUser', function() {
+    $rootScope.$on('getCurrentUser', function () {
         $scope.getCurrentUser();
     });
 
     $scope.loginData = {};
 
-    $scope.logout = function() {
-        AjaxServices.post("auth/logout").then(function() {
+    $scope.logout = function () {
+        AjaxServices.post("auth/logout").then(function () {
             $cookies.remove("token");
             localStorage.removeItem("token");
             $rootScope.$broadcast('getCurrentUser');
@@ -55,21 +63,21 @@
     };
 
 
-    $rootScope.$on('loadingShow', function() {
+    $rootScope.$on('loadingShow', function () {
         $scope.loadingShow = true;
         $ionicLoading.show({
             template: '<div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>'
         });
     });
 
-    $rootScope.$on('loadingHide', function() {
+    $rootScope.$on('loadingHide', function () {
         $scope.loadingShow = false;
         $ionicLoading.hide();
     });
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
-        navIcons.addEventListener('click', function() {
+        navIcons.addEventListener('click', function () {
             this.classList.toggle('active');
         });
     }
@@ -87,11 +95,11 @@
     $scope.popover = $ionicPopover.fromTemplate(template, {
         scope: $scope
     });
-    $scope.closePopover = function() {
+    $scope.closePopover = function () {
         $scope.popover.hide();
     };
     //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
         $scope.popover.remove();
     });
 });
