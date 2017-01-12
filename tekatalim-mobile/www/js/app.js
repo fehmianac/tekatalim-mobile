@@ -72,15 +72,37 @@ app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
             console.log("fehmi" + data)
         }
 
-        window.plugins.OneSignal
-            .startInit("464574e2-336f-4f33-b8f4-8a98fb9b186e")
-            .handleNotificationOpened(notificationOpenedCallback)
-            .endInit();
-        window.plugins.OneSignal.getIds(function (ids) {
-            AjaxServices.post("user/token", { pushToken: ids['userId'], platform: platform }).then(function (data) {
-                window.pushToken = ids['userId'];
+        if (platform == "android") {
+            window.plugins.OneSignal
+                .startInit("464574e2-336f-4f33-b8f4-8a98fb9b186e")
+                .handleNotificationOpened(notificationOpenedCallback).registerForPushNotifications
+                .endInit();
+            window.plugins.OneSignal.getIds(function (ids) {
+                AjaxServices.post("user/token", { pushToken: ids['userId'], platform: platform }).then(function (data) {
+                    console.log(JSON.stringify(ids));
+                    window.pushToken = ids['userId'];
+                    console.log(window.pushToken);
+                });
             });
-        });
+        } else {
+            var iosSettings = {};
+            iosSettings["kOSSettingsKeyAutoPrompt"] = false;
+            iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
+
+            // Initialize
+            window.plugins.OneSignal
+                .startInit("464574e2-336f-4f33-b8f4-8a98fb9b186e")
+                .iOSSettings(iosSettings)
+                .endInit();
+            window.plugins.OneSignal.registerForPushNotifications();
+            window.plugins.OneSignal.getIds(function (ids) {
+                AjaxServices.post("user/token", { pushToken: ids['userId'], platform: platform }).then(function (data) {
+                    console.log(JSON.stringify(ids));
+                    window.pushToken = ids['userId'];
+                    console.log(window.pushToken);
+                });
+            });
+        }
     });
 })
 
