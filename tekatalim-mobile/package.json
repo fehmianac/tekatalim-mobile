@@ -29,7 +29,8 @@
       "id": "phonegap-plugin-push"
     },
     "ionic-plugin-deploy",
-    "phonegap-plugin-push"
+    "phonegap-plugin-push",
+    "onesignal-cordova-plugin"
   ],
   "cordovaPlatforms": [
     "android"

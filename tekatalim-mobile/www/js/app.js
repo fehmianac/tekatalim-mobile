@@ -57,35 +57,31 @@ app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
             StatusBar.styleDefault();
         }
 
-        var push = PushNotification.init({
-            android: {
-                senderID: "1000330486764"
-            },
-            browser: {
-                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-            },
-            ios: {
-                alert: "true",
-                badge: true,
-                sound: 'false'
-            },
-            windows: {}
-        });
+        var isAndroid = ionic.Platform.isAndroid();
+        var platform = "";
+        if (isAndroid) {
+            platform = "android";
+        } else {
+            platform = "ios";
+        }
 
-        push.on('registration', function (data) {
-            var isAndroid = ionic.Platform.isAndroid();
-            var platform = "";
-            if (isAndroid) {
-                platform = "android";
-            } else {
-                platform = "ios";
-            }
-            AjaxServices.post("user/token", { pushToken: token.token, platform: platform }).then(function (data) {
+        var notificationOpenedCallback = function (jsonData) {
+            console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+        };
+        var fehmi = function (data) {
+            console.log("fehmi" + data)
+        }
 
+        window.plugins.OneSignal
+            .startInit("464574e2-336f-4f33-b8f4-8a98fb9b186e")
+            .handleNotificationOpened(notificationOpenedCallback)
+            .endInit();
+
+        window.plugins.OneSignal.getIds(function (ids) {
+            AjaxServices.post("user/token", { pushToken: ids.pushToken, platform: platform }).then(function (data) {
+                window.pushToken = ids.pushToken;
             });
-            window.pushToken = data.registrationId;
         });
-
     });
 })
 

@@ -1,14 +1,5 @@
-﻿app.controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, ionicPush, $rootScope, $ionicLoading, $timeout, $cookies, AjaxServices) {
-    // Form data for the login modal
-    $ionicPush.register().then(function (t) {
-        AjaxServices.post("user/token", { pushToken: token.token, platform: platform }).then(function (data) {
+﻿app.controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, $rootScope, $ionicLoading, $timeout, $cookies, AjaxServices) {
 
-        });
-        window.pushToken = t;
-        return $ionicPush.saveToken(t);
-    }).then(function (t) {
-        console.log('Token saved:', t.token);
-    });
     $rootScope.isLoggedUser = false;
     $rootScope.credit = 0;
     setInterval(function () {
