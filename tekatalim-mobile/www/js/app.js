@@ -76,10 +76,9 @@ app.run(function ($ionicPlatform, $ionicAnalytics, AjaxServices) {
             .startInit("464574e2-336f-4f33-b8f4-8a98fb9b186e")
             .handleNotificationOpened(notificationOpenedCallback)
             .endInit();
-
         window.plugins.OneSignal.getIds(function (ids) {
-            AjaxServices.post("user/token", { pushToken: ids.pushToken, platform: platform }).then(function (data) {
-                window.pushToken = ids.pushToken;
+            AjaxServices.post("user/token", { pushToken: ids['userId'], platform: platform }).then(function (data) {
+                window.pushToken = ids['userId'];
             });
         });
     });
